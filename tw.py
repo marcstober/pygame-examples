@@ -2,7 +2,7 @@ import argparse
 from datetime import datetime, timedelta
 import math
 import pygame
-from setwindowpos import set_window_topmost
+from pysetwindowpos import set_window_topmost
 import time
 
 parser = argparse.ArgumentParser()
@@ -46,7 +46,8 @@ while running:
     # whether or not there was an event
     win.fill((0, 0, 0))
     m = 0
-    print(minutes)
+    pygame.display.set_caption(f"{minutes} Minute Transition Warning")
+    # print(minutes)
 
     if minutes < 1:
         if not out_played:
@@ -72,6 +73,5 @@ while running:
 
     tdelta = end_time - datetime.today()
     minutes = int(tdelta.total_seconds() / 60)
-    print(minutes)
 
     clock.tick(1) # TODO: maybe this should be higher to respond to other events, just don't update display
