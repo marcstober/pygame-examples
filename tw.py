@@ -2,7 +2,7 @@ import argparse
 from datetime import datetime, timedelta
 import math
 import pygame
-from pysetwindowpos import set_window_topmost
+from pysetwindowpos import set_window_topmost # TODO: package so that this specified as a dependency?
 import time
 
 parser = argparse.ArgumentParser()
