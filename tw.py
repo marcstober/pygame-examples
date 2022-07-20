@@ -48,12 +48,12 @@ class TransitionWarningApp:
 
                 if event.type == pygame.QUIT:
                     running = False
+                    break
 
             # whether or not there was an event
             win.fill((0, 0, 0))
             m = 0
             pygame.display.set_caption(f"{minutes} Minute Transition Warning")
-            # print(minutes)
 
             if minutes < 1:
                 if not out_played:
