@@ -1,7 +1,7 @@
 import argparse
-import datetime
 import math
 import pygame
+from datetime import datetime, date
 
 # TODO: package so this is specified as a dependency?
 from pysetwindowpos import set_window_topmost
@@ -10,8 +10,8 @@ from pysetwindowpos import set_window_topmost
 class TransitionWarningApp:
     def _parse_time(self, time_arg):
         # FUTURE: use https://dateutil.readthedocs.io/en/stable/ ?
-        parsed_time = datetime.datetime.strptime(time_arg, "%H:%M").time()
-        end_time = datetime.datetime.combine(datetime.date.today(), parsed_time)
+        parsed_time = datetime.strptime(time_arg, "%H:%M").time()
+        end_time = datetime.combine(date.today(), parsed_time)
         return end_time
 
     def run(self):
@@ -24,7 +24,7 @@ class TransitionWarningApp:
         clock = pygame.time.Clock()
         end_time = self._parse_time(args.time)
         print(end_time)
-        tdelta = end_time - datetime.datetime.today()
+        tdelta = end_time - datetime.today()
         minutes = int(tdelta.total_seconds() / 60)
         print(minutes)
 
@@ -77,7 +77,7 @@ class TransitionWarningApp:
 
             pygame.display.flip()
 
-            tdelta = end_time - datetime.datetime.today()
+            tdelta = end_time - datetime.today()
             minutes = int(tdelta.total_seconds() / 60)
 
             # TODO: maybe this should be higher to respond to other events, just don't update display
