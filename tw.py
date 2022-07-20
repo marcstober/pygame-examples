@@ -1,21 +1,17 @@
 import argparse
-from datetime import datetime, timedelta
+import datetime
 import math
 import pygame
 
 # TODO: package so this is specified as a dependency?
 from pysetwindowpos import set_window_topmost
-import time
 
 
 class TransitionWarningApp:
     def _parse_time(self, time_arg):
-        # use https://dateutil.readthedocs.io/en/stable/ ?
-        parsed_time = time.strptime(time_arg, "%H:%M")
-        td = datetime.today()
-        end_time = datetime(
-            td.year, td.month, td.day, parsed_time.tm_hour, parsed_time.tm_min
-        )
+        # FUTURE: use https://dateutil.readthedocs.io/en/stable/ ?
+        parsed_time = datetime.datetime.strptime(time_arg, "%H:%M").time()
+        end_time = datetime.datetime.combine(datetime.date.today(), parsed_time)
         return end_time
 
     def run(self):
@@ -26,9 +22,9 @@ class TransitionWarningApp:
         pygame.init()  # not always needed, but seems to be best practice?
 
         clock = pygame.time.Clock()
-        end_time = self.parse_time(args.time)
+        end_time = self._parse_time(args.time)
         print(end_time)
-        tdelta = end_time - datetime.today()
+        tdelta = end_time - datetime.datetime.today()
         minutes = int(tdelta.total_seconds() / 60)
         print(minutes)
 
@@ -81,7 +77,7 @@ class TransitionWarningApp:
 
             pygame.display.flip()
 
-            tdelta = end_time - datetime.today()
+            tdelta = end_time - datetime.datetime.today()
             minutes = int(tdelta.total_seconds() / 60)
 
             # TODO: maybe this should be higher to respond to other events, just don't update display
