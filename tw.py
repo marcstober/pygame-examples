@@ -6,6 +6,8 @@ from datetime import datetime, date
 # TODO: package so this is specified as a dependency?
 from pysetwindowpos import set_window_topmost
 
+# colors = ((172, 172, 0), (0, 172, 0)) # default
+colors = ((243, 113, 33), (18, 182, 202)) # Sci-Tech
 
 class TransitionWarningApp:
     def _parse_time(self, time_arg):
@@ -66,14 +68,14 @@ class TransitionWarningApp:
                         chime_sound.play()
                         chime_played = True
 
-                color = (172, 172, 0)
+                color = colors[0]
                 for i in range(0, size):
                     for j in range(0, size):
                         if m < minutes:
                             pygame.draw.rect(win, color, (j * 50, i * 50, 48, 48))
                         m += 1
                         if m == 5:
-                            color = (0, 172, 0)
+                            color = colors[1]
 
             pygame.display.flip()
 
