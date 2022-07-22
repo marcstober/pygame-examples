@@ -37,7 +37,7 @@ class TransitionWarningApp:
         set_window_topmost(pygame.display.get_wm_info()["window"])
 
         # chime from https://www.wavsource.com/sfx/sfx.htm
-        chime_sound = pygame.mixer.Sound("airplane_chime_x.wav")
+        chime_sound = pygame.mixer.Sound("chime_down.wav")
         chime_sound.play()
         out_sound = pygame.mixer.Sound("out.WAV")
         out_sound.play()
