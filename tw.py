@@ -37,9 +37,9 @@ class TransitionWarningApp:
         set_window_topmost(pygame.display.get_wm_info()["window"])
 
         # chime from https://www.wavsource.com/sfx/sfx.htm
-        chime_sound = pygame.mixer.Sound("chime_down.wav")
+        chime_sound = pygame.mixer.Sound("chime1.mabc.wav")
         chime_sound.play()
-        out_sound = pygame.mixer.Sound("out.WAV")
+        out_sound = pygame.mixer.Sound("chime2.mabc.wav")
         out_sound.play()
 
         running = True
