@@ -24,9 +24,6 @@ def draw_text(surface, text):
 
 
 class TransitionWarningApp:
-    def __init__(self):
-        self.text = ""
-
     def _parse_time(self, time_arg):
         # FUTURE: use https://dateutil.readthedocs.io/en/stable/ ?
         parsed_time = datetime.strptime(time_arg, "%H:%M").time()
@@ -41,6 +38,8 @@ class TransitionWarningApp:
     def _reset(self, time_arg):
         self.end_time = self._parse_time(time_arg)
         self.size = math.ceil(math.sqrt(self._get_minutes_remaining()))
+        self._ending_chime_played = self._warning_chime_played = False
+        self.text = ""
         print(self.end_time)
 
     def _handle_keydown(self, event):
@@ -79,8 +78,8 @@ class TransitionWarningApp:
         out_sound.play()
 
         running = True
-        chime_played = False
-        out_played = False
+        self._warning_chime_played = False
+        self._ending_chime_played = False
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -95,16 +94,16 @@ class TransitionWarningApp:
             pygame.display.set_caption(f"{minutes} Minute Transition Warning")
 
             if minutes < 1:
-                if not out_played:
+                if not self._ending_chime_played:
                     out_sound.play()
-                    out_played = True
+                    self._ending_chime_played = True
                     self.text = PROMPT_TEXT
 
             else:
                 if minutes < 5:
-                    if not chime_played:
+                    if not self._warning_chime_played:
                         chime_sound.play()
-                        chime_played = True
+                        self._warning_chime_played = True
 
                 color = colors[0]
                 for i in range(0, self.size):
