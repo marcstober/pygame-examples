@@ -5,8 +5,8 @@ SPRITE_SIZE = 70
 
 
 class Character(pygame.sprite.Sprite):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, *groups) -> None:
+        super().__init__(*groups)
         self.image = pygame.Surface((SPRITE_SIZE, SPRITE_SIZE))
         self.rect = self.image.get_rect()
         pygame.draw.circle(
