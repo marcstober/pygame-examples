@@ -3,6 +3,7 @@ import pygame.time
 
 SPRITE_SIZE = 70
 
+
 class Character(pygame.sprite.Sprite):
     def __init__(self) -> None:
         super().__init__()
@@ -13,6 +14,7 @@ class Character(pygame.sprite.Sprite):
         )
         self.image.set_colorkey((0, 0, 0))
         self.mask = pygame.mask.from_surface(self.image)
+
 
 pygame.init()
 
@@ -35,16 +37,18 @@ while running:
             break
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                character1.rect.left -= 1    
+                character1.rect.left -= 1
             elif event.key == pygame.K_RIGHT:
-                character1.rect.left += 1    
+                character1.rect.left += 1
             elif event.key == pygame.K_UP:
-                character1.rect.top -= 1    
+                character1.rect.top -= 1
             elif event.key == pygame.K_DOWN:
-                character1.rect.top += 1    
+                character1.rect.top += 1
 
     color = 0, 50, 0
-    if pygame.sprite.spritecollide(character1, obstacle_group, False, pygame.sprite.collide_mask):
+    if pygame.sprite.spritecollide(
+        character1, obstacle_group, False, pygame.sprite.collide_mask
+    ):
         color = 100, 0, 0
 
     win.fill(color)
