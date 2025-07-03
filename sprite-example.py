@@ -28,6 +28,7 @@ clock = pygame.time.Clock()
 velocity = 20
 running = True
 while running:
+    screen.fill("dimgray")
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -42,7 +43,6 @@ while running:
             elif event.key == pygame.K_DOWN:
                 sprite1.rect.top += velocity
 
-    screen.fill("dimgray")
     group1.update()
     group1.draw(screen)
     pygame.display.flip()
