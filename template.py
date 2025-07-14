@@ -3,7 +3,9 @@ import pygame.time
 
 pygame.init()
 
-screen = pygame.display.set_mode((400, 300))
+WIDTH, HEIGHT = 400, 300
+
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 running = True
 
