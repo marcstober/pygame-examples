@@ -1,6 +1,5 @@
 import random
 from pathlib import Path
-from tkinter.tix import MAX
 
 import pygame
 import pygame.time
