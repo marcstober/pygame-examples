@@ -4,16 +4,16 @@ This folder contains a collection of minimal, focused examples ("recipes") for c
 
 ## Files in this folder
 
-- **template.py**
+- **[template.py]()**
   - The base template for all examples. It sets up a Pygame window, event loop, and basic structure. Use this as a starting point for your own scripts.
 
-- **showimage.py**
+- **[showimage.py]()**
   - Demonstrates how to load and display an image on the screen using `pygame.image.load()` and `screen.blit()`. Useful for learning how to work with images in Pygame.
 
-- **drawtext.py**
+- **[drawtext.py]()**
   - Shows how to render and display text on the screen using `pygame.font.SysFont` and `screen.blit()`. Useful for adding labels, scores, or messages to your game.
 
-- **everysecond.py**
+- **[everysecond.py]()**
   - Demonstrates how to perform an action every second using `pygame.time.get_ticks()`. Prints a message to the console once per second. Great for learning about timers and periodic events.
 
 ## How to use these examples
