@@ -3,7 +3,6 @@ import math
 import pygame
 from datetime import datetime, date
 
-# TODO: package so this is specified as a dependency?
 from pysetwindowpos import set_window_topmost
 
 PROMPT_TEXT = "enter time in %H:%M format and press enter to reset"
