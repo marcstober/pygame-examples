@@ -1,7 +1,8 @@
 import os
+import subprocess
 import sys
 import traceback
-import subprocess
+from pathlib import Path
 
 root = os.path.dirname(os.path.abspath(__file__))
 
@@ -10,7 +11,7 @@ failures = []
 # Dictionary of script path (relative to root) to list of command line args
 script_args = {
     # Example: "recipes/showimage.py": ["--example"],
-    "tw.py": ["23:59"],
+    str(Path("tw") / "tw.py"): ["23:59"],
 }
 
 
