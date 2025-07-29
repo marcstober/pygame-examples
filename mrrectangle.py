@@ -54,7 +54,7 @@ all_sprites = pygame.sprite.Group()
 
 goal = RectSprite.create(get_random_color(), (0, 0, 32, 50), all_sprites)
 image_path = Path("sprite") / "guy.png"
-player = ImageSprite.from_path(image_path, all_sprites)
+player = ImageSprite.from_filename(image_path, all_sprites)
 
 randomly_position_sprites()
 

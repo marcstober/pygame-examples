@@ -2,10 +2,15 @@ import pygame
 
 
 class ImageSprite(pygame.sprite.Sprite):
-    def __init__(self, image_path, *groups) -> None:
-        super().__init__(*groups)
-        self.image = pygame.image.load(image_path).convert_alpha()
-        self.rect = self.image.get_rect()
+    rect: pygame.Rect
+    image: pygame.Surface
 
-    # def update(self, *args, **kwargs):
-    # You can implement logic here to update the sprite each frame
+    @classmethod
+    def from_filename(cls, filename, *groups):
+        # This is done as a classmethod, not in the constructor,
+        # to keep type checkers happy since they don't like
+        # the constructor having a different signature than that of the base class.
+        sprite = cls(*groups)
+        sprite.image = pygame.image.load(filename).convert_alpha()
+        sprite.rect = sprite.image.get_rect()
+        return sprite

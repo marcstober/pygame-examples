@@ -6,7 +6,7 @@ A probe sprite is created at the mouse position to check for collisions with exi
 import pygame
 import pygame.time
 
-from colorsprite import ColorSprite
+from rectsprite import RectSprite
 
 
 class PointSprite(pygame.sprite.Sprite):
@@ -26,7 +26,7 @@ running = True
 
 # -- initialize other global variables here --
 all_sprites = pygame.sprite.Group()
-color_sprite = ColorSprite((255, 0, 0), all_sprites)
+color_sprite = RectSprite.create((255, 0, 0), (100, 100, 32, 50), all_sprites)
 
 while running:
     # fill window with a background color (you usually want to do this)
