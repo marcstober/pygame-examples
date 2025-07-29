@@ -4,8 +4,8 @@ from pathlib import Path
 import pygame
 import pygame.time
 
-from sprite.colorsprite import ColorSprite
 from sprite.imagesprite import ImageSprite
+from sprite.rectsprite import RectSprite
 
 # define some functions to use later
 
@@ -16,13 +16,13 @@ def get_random_color():
 
 
 def randomly_position_sprites():
-    color_sprite.rect.topleft = (
-        random.randint(0, WIDTH - color_sprite.rect.width),
-        random.randint(0, HEIGHT - color_sprite.rect.height),
+    goal.rect.topleft = (
+        random.randint(0, WIDTH - goal.rect.width),
+        random.randint(0, HEIGHT - goal.rect.height),
     )
-    image_sprite.rect.topleft = (
-        random.randint(0, WIDTH - image_sprite.rect.width),
-        random.randint(0, HEIGHT - image_sprite.rect.height),
+    player.rect.topleft = (
+        random.randint(0, WIDTH - player.rect.width),
+        random.randint(0, HEIGHT - player.rect.height),
     )
 
 
@@ -48,14 +48,13 @@ background_color = (0, 255, 255)
 is_colliding = False
 score = 0
 
-
 # create sprites
 
 all_sprites = pygame.sprite.Group()
 
-color_sprite = ColorSprite(get_random_color(), all_sprites)
+goal = RectSprite.create(get_random_color(), (0, 0, 32, 50), all_sprites)
 image_path = Path("sprite") / "guy.png"
-image_sprite = ImageSprite(image_path, all_sprites)
+player = ImageSprite.from_path(image_path, all_sprites)
 
 randomly_position_sprites()
 
@@ -78,28 +77,28 @@ while running:
         # check which keys are being pressed and move Mr. Rectangle
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            image_sprite.rect.x -= 1
+            player.rect.x -= 1
         if keys[pygame.K_RIGHT]:
-            image_sprite.rect.x += 1
+            player.rect.x += 1
         if keys[pygame.K_UP]:
-            image_sprite.rect.y -= 1
+            player.rect.y -= 1
         if keys[pygame.K_DOWN]:
-            image_sprite.rect.y += 1
+            player.rect.y += 1
 
         # make Mr. Rectangle wrap around when he goes off the screen
-        if image_sprite.rect.right < 0:
-            image_sprite.rect.left = WIDTH - 1
-        elif image_sprite.rect.left > WIDTH:
-            image_sprite.rect.right = 1
-        if image_sprite.rect.bottom < 0:
-            image_sprite.rect.top = HEIGHT - 1
-        elif image_sprite.rect.top > HEIGHT:
-            image_sprite.rect.bottom = 1
+        if player.rect.right < 0:
+            player.rect.left = WIDTH - 1
+        elif player.rect.left > WIDTH:
+            player.rect.right = 1
+        if player.rect.bottom < 0:
+            player.rect.top = HEIGHT - 1
+        elif player.rect.top > HEIGHT:
+            player.rect.bottom = 1
 
         # change color when sprites collide
-        if pygame.sprite.collide_rect(color_sprite, image_sprite):
+        if pygame.sprite.spritecollideany(player, pygame.sprite.Group(goal)):
             if not is_colliding:
-                color_sprite.set_color(get_random_color())
+                goal.color = get_random_color()
                 background_color = get_random_color()
                 randomly_position_sprites()
                 score += 1
