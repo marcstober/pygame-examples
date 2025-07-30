@@ -1,5 +1,4 @@
 import pygame
-import pygame.time
 
 pygame.init()
 
@@ -7,11 +6,12 @@ WIDTH, HEIGHT = 400, 300
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
-running = True
 
-# -- initialize other global variables here --
+# -- setup code goes here --
+
 last_tick = pygame.time.get_ticks()
 
+running = True
 while running:
     # fill window with a background color (you usually want to do this)
     screen.fill((0, 0, 255))
@@ -20,7 +20,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    # -- put the rest of your code here --
+    # -- the rest of your code goes here --
 
     current_tick = pygame.time.get_ticks()
     if current_tick - last_tick >= 1000:  # 1000 ms = 1 second
