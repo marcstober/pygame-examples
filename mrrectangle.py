@@ -38,7 +38,6 @@ big_font = pygame.font.SysFont("Verdana", 24)
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
-running = True
 
 MAX_SECONDS = 60
 seconds_left = MAX_SECONDS  # 60
@@ -53,12 +52,12 @@ score = 0
 all_sprites = pygame.sprite.Group()
 
 goal = RectSprite.create(get_random_color(), (0, 0, 32, 50), all_sprites)
-image_path = Path("sprite") / "guy.png"
-player = ImageSprite.from_filename(image_path, all_sprites)
+filename = Path("sprite") / "guy.png"
+player = ImageSprite.from_filename(filename, all_sprites)
 
 randomly_position_sprites()
 
-
+running = True
 while running:
 
     # handle events, especially quit event
@@ -70,6 +69,7 @@ while running:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_s:
             if seconds_left <= 0:
                 print("Restarting")
+                is_colliding = False
                 seconds_left = MAX_SECONDS  # 60
                 start_tick = pygame.time.get_ticks()
 

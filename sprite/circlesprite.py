@@ -18,16 +18,48 @@ class CircleSprite(pygame.sprite.Sprite):
     """
 
     color: ColorValue
-    center: Coordinate
-    radius: float
     rect: pygame.Rect
     image: pygame.Surface
 
     def __init__(self, *groups: Any) -> None:
         super().__init__(*groups)
         self.color = (0, 0, 0)
-        self.center = (0, 0)
-        self.radius = 0.0
+        self._center = (0, 0)
+        self._radius = 0.0
+        self.rect = pygame.Rect(0, 0, 0, 0)
+        self.image = pygame.Surface((0, 0), pygame.SRCALPHA)
+
+    @property
+    def center(self) -> Coordinate:
+        return self._center
+
+    @center.setter
+    def center(self, value: Coordinate) -> None:
+        self._center = value
+        # Update rect to keep the circle centered
+        if hasattr(self, "_radius"):
+            self.rect = pygame.Rect(
+                self._center[0] - self._radius,
+                self._center[1] - self._radius,
+                self._radius * 2,
+                self._radius * 2,
+            )
+
+    @property
+    def radius(self) -> float:
+        return self._radius
+
+    @radius.setter
+    def radius(self, value: float) -> None:
+        self._radius = value
+        # Update rect to keep the circle sized and centered
+        if hasattr(self, "_center"):
+            self.rect = pygame.Rect(
+                self._center[0] - self._radius,
+                self._center[1] - self._radius,
+                self._radius * 2,
+                self._radius * 2,
+            )
 
     @classmethod
     def create(cls, color, center, radius, *groups):
@@ -44,12 +76,11 @@ class CircleSprite(pygame.sprite.Sprite):
     def update(self) -> None:
         # TODO: Improve performance by only updating if needed?
         #  (i. e., color, center, or radius changes)
-        self.rect = pygame.Rect(
-            self.center[0] - self.radius,
-            self.center[1] - self.radius,
-            self.radius * 2,
-            self.radius * 2,
-        )
+
+        # update center and radius to match any changes to the rect property
+        self.center = self.rect.center
+        self.radius = min(self.rect.width, self.rect.height) // 2
+
         self.image = pygame.Surface(self.rect.size, pygame.SRCALPHA)
         pygame.draw.circle(
             self.image, self.color, (self.radius, self.radius), self.radius
