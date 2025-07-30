@@ -1,6 +1,6 @@
 # Pygame Examples
 
-Example code from teaching Python using Pygame.
+Example code used in teaching Python with Pygame.
 
 ## Contents
 
