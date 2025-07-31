@@ -2,8 +2,11 @@ import pygame
 import pygame_widgets
 from pygame_widgets.button import Button
 from pygame_widgets.textbox import TextBox
+from pygame_widgets.slider import Slider
 
 the_text = "Hello, world!"
+
+blueness = 255
 
 
 def on_btn_click(param):
@@ -33,6 +36,9 @@ btn = Button(
 )
 
 tb = TextBox(win, 100, 50, 400, 75)
+tb.setText(the_text)
+
+sldr = Slider(win, 100, 150, 400, 20, min=0, max=255, step=1)
 
 draw_text("Enter some text:")
 
@@ -53,7 +59,8 @@ while running:  # event loop
             running = False
             break
 
-    win.fill((100, 100, 100))
+    blueness = sldr.getValue()
+    win.fill((100, 100, blueness))
 
     draw_text(the_text, 300)
 
