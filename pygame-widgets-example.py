@@ -42,8 +42,6 @@ sldr = Slider(win, 100, 150, 400, 20, min=0, max=255, step=1)
 
 draw_text("Enter some text:")
 
-pygame.display.flip()
-
 
 def change_button_text(button, text):
     """Change text on pygame-widgets button."""
