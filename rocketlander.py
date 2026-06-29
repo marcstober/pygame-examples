@@ -7,7 +7,6 @@ import pygame.time
 from sprite.imagesprite import ImageSprite
 from sprite.circlesprite import CircleSprite
 
-
 # define some functions to use later
 
 
@@ -49,7 +48,7 @@ game_over = False
 all_sprites = pygame.sprite.Group()
 
 planet = CircleSprite.create(get_random_color(), (0, 0), 60, all_sprites)
-filename = Path("sprite") / "vecteezy_pixel-rocket-ship-illustration_49496512.png"
+filename = Path("sprite") / "rocket.png"
 rocket = ImageSprite.from_filename(filename, all_sprites, scale_to_size=(90, 90))
 
 randomly_position_sprites()
