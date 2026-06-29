@@ -2,7 +2,6 @@ from typing import Any, Sequence, Tuple, Union
 
 import pygame
 
-# imitate pygame types for type checking
 RGBAOutput = Tuple[int, int, int, int]
 ColorValue = Union[
     pygame.Color, int, str, Tuple[int, int, int], RGBAOutput, Sequence[int]
@@ -17,15 +16,11 @@ class CircleSprite(pygame.sprite.Sprite):
     It's recommended to use the `create` class method to instantiate this sprite.
     """
 
-    color: ColorValue
-    rect: pygame.Rect
-    image: pygame.Surface
-
     def __init__(self, *groups: Any) -> None:
         super().__init__(*groups)
-        self.color = (0, 0, 0)
-        self._center = (0, 0)
-        self._radius = 0.0
+        self.color: ColorValue = (0, 0, 0)
+        self._center: tuple[float, float] = (0.0, 0.0)
+        self._radius: float = 0.0
         self.rect = pygame.Rect(0, 0, 0, 0)
         self.image = pygame.Surface((0, 0), pygame.SRCALPHA)
 
@@ -35,8 +30,7 @@ class CircleSprite(pygame.sprite.Sprite):
 
     @center.setter
     def center(self, value: Coordinate) -> None:
-        self._center = value
-        # Update rect to keep the circle centered
+        self._center = (float(value[0]), float(value[1]))
         if hasattr(self, "_radius"):
             self.rect = pygame.Rect(
                 self._center[0] - self._radius,
@@ -52,7 +46,6 @@ class CircleSprite(pygame.sprite.Sprite):
     @radius.setter
     def radius(self, value: float) -> None:
         self._radius = value
-        # Update rect to keep the circle sized and centered
         if hasattr(self, "_center"):
             self.rect = pygame.Rect(
                 self._center[0] - self._radius,
@@ -62,7 +55,9 @@ class CircleSprite(pygame.sprite.Sprite):
             )
 
     @classmethod
-    def create(cls, color, center, radius, *groups):
+    def create(
+        cls, color: ColorValue, center: Coordinate, radius: float, *groups: Any
+    ) -> "CircleSprite":
         # This is done as a classmethod, not in the constructor,
         # to keep type checkers happy since they don't like
         # the constructor having a different signature than that of the base class.
@@ -76,8 +71,8 @@ class CircleSprite(pygame.sprite.Sprite):
     def update(self) -> None:
         # TODO: Improve performance by only updating if needed?
         #  (i. e., color, center, or radius changes)
+        assert self.rect is not None  # keep type checkers happy
 
-        # update center and radius to match any changes to the rect property
         self.center = self.rect.center
         self.radius = min(self.rect.width, self.rect.height) // 2
 
