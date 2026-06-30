@@ -82,7 +82,7 @@ while running:
         if keys[pygame.K_DOWN]:
             rocket.rect.y += 1
 
-        # make Mr. Rectangle wrap around when he goes off the screen
+        # make the rocket wrap around when it goes off the screen
         if rocket.rect.right < 0:
             rocket.rect.left = WIDTH - 1
         elif rocket.rect.left > WIDTH:
