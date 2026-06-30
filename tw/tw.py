@@ -37,7 +37,10 @@ class TransitionWarningApp:
         minutes = int(tdelta.total_seconds() / 60)
         return minutes
 
-    def _get_countdown_text(self):
+    def _get_countdown_text(self, minutes_remaining):
+        if minutes_remaining > 0:
+            return f"{minutes_remaining} Minute"
+
         tdelta = self.end_time - datetime.today()
         total_seconds = max(0, int(tdelta.total_seconds()))
         minutes, seconds = divmod(total_seconds, 60)
@@ -99,7 +102,7 @@ class TransitionWarningApp:
             # whether or not there was an event
             win.fill((0, 0, 0))
             m = 0
-            countdown = self._get_countdown_text()
+            countdown = self._get_countdown_text(minutes)
             pygame.display.set_caption(f"{countdown} Transition Warning")
 
             if minutes < 1:
