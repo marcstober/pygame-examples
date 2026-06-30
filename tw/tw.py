@@ -25,6 +25,9 @@ def draw_text(surface, text):
 class TransitionWarningApp:
     def _parse_time(self, time_arg):
         # FUTURE: use https://dateutil.readthedocs.io/en/stable/ ?
+        if ":" not in time_arg and time_arg.isdigit() and len(time_arg) in (3, 4):
+            normalized = time_arg.zfill(4)  # allow 3-digit input (e.g., "959" for 9:59)
+            time_arg = f"{normalized[:2]}:{normalized[2:]}"
         parsed_time = datetime.strptime(time_arg, "%H:%M").time()
         end_time = datetime.combine(date.today(), parsed_time)
         return end_time
@@ -33,6 +36,12 @@ class TransitionWarningApp:
         tdelta = self.end_time - datetime.today()
         minutes = int(tdelta.total_seconds() / 60)
         return minutes
+
+    def _get_countdown_text(self):
+        tdelta = self.end_time - datetime.today()
+        total_seconds = max(0, int(tdelta.total_seconds()))
+        minutes, seconds = divmod(total_seconds, 60)
+        return f"{minutes:02}:{seconds:02}"
 
     def _reset(self, time_arg):
         self.end_time = self._parse_time(time_arg)
@@ -90,7 +99,8 @@ class TransitionWarningApp:
             # whether or not there was an event
             win.fill((0, 0, 0))
             m = 0
-            pygame.display.set_caption(f"{minutes} Minute Transition Warning")
+            countdown = self._get_countdown_text()
+            pygame.display.set_caption(f"{countdown} Transition Warning")
 
             if minutes < 1:
                 if not self._ending_chime_played:
